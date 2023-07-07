@@ -17,9 +17,13 @@ jobs:
         id: install-google-clasp
         run: sudo npm install -g @google/clasp
 
+      - name: Write .clasprc.json file
+        id: write-clasprc
+        env:
+          CLASPRC_JSON: ${{ secrets.CLASPRC_JSON }}
+        run: echo "$CLASPRC_JSON" > ~/.clasprc.json
+
       - name: Login Google Clasp
         id: login-google-clasp
         run: |
-          clasp login --no-localhost --creds <(echo ${ACCESS_TOKEN} ${REFRESH_TOKEN} ${CLIENT_ID} ${CLIENT_SECRET} ${ID_TOKEN})
-          clasp create --type standalone --title "Development"
-      
+          clasp login  --status      
