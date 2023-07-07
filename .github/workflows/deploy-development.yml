@@ -27,3 +27,8 @@ jobs:
         id: login-google-clasp
         run: |
           clasp login  --status      
+      
+      - name: Create new environment
+        id: create-new-environment
+        run: |
+          clasp create --title "Development" 
