@@ -2,10 +2,11 @@ name: Deploy Development
 run-name: ${{ github.actor }} is deploying development
 on: [push]
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Install Google Clasp
-      id: install-google-clasp
-      run: sudo npm install -g @google/clasp
+  deploy-development:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Google Clasp
+        id: install-google-clasp
+        run: sudo npm install -g @google/clasp
       
 
