@@ -31,4 +31,4 @@ jobs:
       - name: Create new environment
         id: create-new-environment
         run: |
-          clasp create --type sheets --rootDir ./src --title "table-Development" > ./table-development.txt
+          clasp create --type sheets --rootDir ./src --title "table-Development" > ./table-development.txt && mv ./src/.clasp.json ./.clasp.json
