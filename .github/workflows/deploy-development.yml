@@ -21,4 +21,6 @@ jobs:
         id: login-google-clasp
         run: clasp login --no-localhost --creds <(echo ${ACCESS_TOKEN} ${REFRESH_TOKEN} ${CLIENT_ID} ${CLIENT_SECRET} ${ID_TOKEN})
       
-
+      - name: create environment
+        id: create-environment
+        run: clasp create --type standalone --title "Development"
