@@ -149,3 +149,6 @@ node_modules
 tmp
 .clasprc.json
 .clasp.json
+table-development.txt
+table-production.txt
+package-lock.json
