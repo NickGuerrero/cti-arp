@@ -13,6 +13,9 @@ jobs:
       REMOTE_BRANCH: main
 
     steps:
+      - name: checkout repo
+        uses: actions/checkout
+
       - name: Install Google Clasp
         id: install-google-clasp
         run: sudo npm install -g @google/clasp
