@@ -19,6 +19,7 @@ jobs:
 
       - name: Login Google Clasp
         id: login-google-clasp
-        run: clasp login --no-localhost --creds <(echo ${ACCESS_TOKEN} ${REFRESH_TOKEN} ${CLIENT_ID} ${CLIENT_SECRET} ${ID_TOKEN})
-        run: clasp create --type standalone --title "Development"
+        run: |
+          clasp login --no-localhost --creds <(echo ${ACCESS_TOKEN} ${REFRESH_TOKEN} ${CLIENT_ID} ${CLIENT_SECRET} ${ID_TOKEN})
+          clasp create --type standalone --title "Development"
       
