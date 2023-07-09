@@ -15,5 +15,4 @@ function nextURL(linkTxt) {
     }
   
     return url;
-  }
-  
+}
