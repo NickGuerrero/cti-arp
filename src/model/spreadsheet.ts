@@ -15,10 +15,7 @@ class Spreadsheet
     addRow(student, courseSection)
     {
             var _this = this;
-            if(!student['scores']) {
-              console.log("no scores")
-              console.log(student);
-            }
+            
             if (student['scores']) {
                 this.data.push([student.name, student['user_id'], student['sis_user_id'], student['login_id'], courseSection]);
                 var student_index = this.data.length - 1;
@@ -33,21 +30,17 @@ class Spreadsheet
                     _this.data[student_index].push(score);
                 });
 
-              
               this.data[student_index].push(_this.current_points);
               this.data[student_index].push(student['grades']['current_score']);
               this.data[student_index].push(student['grades']['unposted_current_score']);
               this.data[student_index].push(student['grades']['final_score']);
               this.data[student_index].push(student['grades']['unposted_final_score']);
-
-
             }
             else {
                 console.log("No scores");
                 console.log(student);
                 return;
             }
-    
     }
 
    addpoints() {
@@ -68,8 +61,3 @@ class Spreadsheet
         return this.data
     }
 }
-
-
-
-
-    
