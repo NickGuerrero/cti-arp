@@ -1,8 +1,11 @@
 import os 
+import sys
 
-environments = ['table-production']
+project_name = sys.argv[1]
+environment = 'table-production-' + project_name
 
 
-for environment in environments:
-        os.system('cp ./scripts/' + environment +'.clasp.json ./.clasp.json')
-        os.system('clasp push')
+os.system('cp ./scripts/' + environment +'.clasp.json ./.clasp.json')
+os.system('clasp push')     
+os.system('clasp deploy >> ./scripts/' + environment + '-deploy.txt')   
+os.system('clasp status --json > ./scripts/' + environment + '-deploy-status.json')
