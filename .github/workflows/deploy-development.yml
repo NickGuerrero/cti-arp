@@ -34,9 +34,9 @@ jobs:
       - name: Create new environment
         id: create-new-environment
         run: |
-          clasp create --type sheets --rootDir ./src --title "Table-Github-Development" > ./table-github-development.txt && mv ./src/.clasp.json ./.clasp.json && cat ./table-github-development.txt && cat ./.clasp.json
+          clasp create --type sheets --rootDir ./src --title "Table-Development-Github" > ./table-development-github.txt && mv ./src/.clasp.json ./.clasp.json && cat ./table-development-github.txt && cat ./.clasp.json
 
       - name: Push code to Google Apps Script
         id: push-code-to-google-apps-script
         run: |
-          ls && clasp push
+          clasp push
