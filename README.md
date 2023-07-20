@@ -16,18 +16,31 @@ Login to clasp: Default credentials saved to: ~/.clasprc.json.
 `clasp login`
 
 Clone the repository
-`git clone `
+`git clone https://github.com/xxxxxxxxxx/table.git`
 
 `cd table`
-Create a new environment
-python scripts/new_environment.py project-name
 
-Deploy table development 
-python scripts/deploy-development.py project-name
+From the root directory install the dependency
+`npm install`
 
-Deploy table production 
-python scripts/deploy-production.py project-name 
+From the root directory, create the development and production spreadsheet environment
 
+Create a new development and production spreadsheet environment
+`python scripts/new_environment.py project-name`
+
+Deploy table development spreadsheet environment 
+`python scripts/deploy-development.py project-name`
+
+Deploy table production spreadsheet environment
+`python scripts/deploy-production.py project-name`
+
+View the table develoopment Google spreadsheet url:
+`cat logs/table-development-project-name.txt`
+
+View the table production Google spreadsheet url:
+`cat logs/table-production-project-name.txt`
+
+Visit the url in the logs directory
 
 ## How to use library
 Create a versioned deployment of the library
