@@ -2,6 +2,7 @@
 
 ## Install
 Install google api python client 
+
 `python3 -m pip install google-api-python-client`
 
 Install the gcloud CLI by following 
@@ -26,11 +27,13 @@ Login to clasp: Default credentials saved to: ~/.clasprc.json.
 `clasp login`
 
 Clone the repository
+
 `git clone https://github.com/xxxxxxxxxx/table.git`
 
 `cd table`
 
 From the root directory install the dependency
+
 `npm install`
 
 
@@ -38,18 +41,23 @@ From the root directory install the dependency
 From the root directory, create the development and production spreadsheet environment
 
 Create a new development and production spreadsheet environment
+
 `python scripts/new_environment.py project-name`
 
 Deploy/Redeploy table development spreadsheet environment 
+
 `python scripts/deploy-development.py project-name`
 
 Deploy/Redeploy table production spreadsheet environment
+
 `python scripts/deploy-production.py project-name`
 
 View the table develoopment Google spreadsheet url:
+
 `cat logs/table-development-project-name.txt`
 
 View the table production Google spreadsheet url:
+
 `cat logs/table-production-project-name.txt`
 
 Visit the url in a web browser
@@ -77,21 +85,24 @@ Contact the author of the table library spreadsheet and request at least view-le
 Add the table library to your project spreadsheet
 
 1. a. Get the table development library script id
+
 `cat logs/table-development-project-name.clasp.json`
 
    b. Get the table production library script id
+   
 `cat logs/table-production-project-name.clasp.json `
 
-2. In the project spreadsheet, go to Extensions -> App Script
-3. On the left of the App Script Editor, Next to "Libraries", Click on Add a library
-4. In the "Script ID" field, paste in the script ID of the table library
-5. Click Look up
+3. In the project spreadsheet, go to Extensions -> App Script
+4. On the left of the App Script Editor, Next to "Libraries", Click on Add a library
+5. In the "Script ID" field, paste in the script ID of the table library
+6. Click Look up
 5. Click the Version dropdown and select the version of the library to use.
 6. In the "Identifier" field, set it to "Table"
 7. Click Add
 
 ## How to use library
 You call a method of from the table library as follows:
+
 `Table.libraryMethod()`
 
 The reference documentation for the table library can be opened by following these steps:
