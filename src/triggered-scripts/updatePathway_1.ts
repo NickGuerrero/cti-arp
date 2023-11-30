@@ -1,0 +1,4 @@
+function updatePathway() {
+    recommendedCourseMilestone();
+    pathwayStatus();
+}

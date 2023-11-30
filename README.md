@@ -1,5 +1,8 @@
 # Table
 
+Note: Adjustments are being made to synchronize this with the other scripts | Last Synchronization: 11/16/2023
+<hr>
+
 ## Install
 Install google api python client 
 

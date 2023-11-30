@@ -1,0 +1,4 @@
+function updateProgress() {
+    canvasUpdate();
+    processMilestoneProgress();
+}
