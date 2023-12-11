@@ -132,9 +132,15 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# Clasp property files
 .clasp.json
 scripts/*.clasp.json
 scripts/*.txt
+
+# Log Files
+logs/*.txt
+logs/*.clasp.json
+logs/*-deploy-status.json
 
 *.DS_Store
 *.log
