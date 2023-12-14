@@ -7,7 +7,11 @@ git branch -f HEAD-Changes
 git checkout HEAD-Changes
 
 # Connect these changes
+cp ./logs/.clasp.json ./.clasp.json # Retrieve the clasp.json
 clasp pull
+rm ./.clasp.json
+
+# Commit the branch
 git add .
 git commit -m "Fetch data from Clasp Head" --allow-empty
 
