@@ -9,6 +9,7 @@
 cp ./logs/.clasp.json ./.clasp.json # Retrieve the clasp.json
 clasp push
 current_deployment=$(clasp deployments | tail -n1 | cut -d' ' -f2) # From https://github.com/google/clasp/issues/752
-clasp deploy --deploymentId "${current_deployment}" >> './logs/arp-deploy.log'
-clasp status >> './logs/arp-deploy.log/'
+deploy_date=$(date '+%Y-%m-%d %H:%M:%S')
+clasp deploy --deploymentId "${current_deployment}" -d "Main Branch $deploy_date" >> './logs/arp-deploy.log'
+clasp status >> './logs/arp-deploy.log'
 rm ./.clasp.json # Remove clasp.json from main directory
