@@ -4,17 +4,17 @@
 function compareMilestone(course_a, milestone_a, course_b, milestone_b){
     var num_mile = 11; // Max number of milestones per course, used to determine base (Like Base-11) 
     const course_mapping = new Map([
-        ["101", 1 * num_mile],
+        [101, 1 * num_mile],
         ["101A", 2 * num_mile],
-        ["201", 3 * num_mile],
+        [201, 3 * num_mile],
         ["201A", 4 * num_mile],
-        ["202", 5 * num_mile],
+        [202, 5 * num_mile],
         ["202A", 6 * num_mile],
-        ["301", 7 * num_mile],
+        [301, 7 * num_mile],
         ["301A", 8 * num_mile],
-        ["302", 9 * num_mile],
+        [302, 9 * num_mile],
         ["302A", 10 * num_mile],
-        ["303", 11 * num_mile],
+        [303, 11 * num_mile],
     ]);
     const milestone_mapping = new Map([
         ["Getting Started", 0],
@@ -33,18 +33,20 @@ function compareMilestone(course_a, milestone_a, course_b, milestone_b){
     let score_a = 0; let score_b = 0;
     if(course_mapping.has(course_a)) score_a += course_mapping.get(course_a);
     if(course_mapping.has(course_b)) score_b += course_mapping.get(course_b);
-    if(milestone_mapping.has(course_a)) score_a += milestone_mapping.get(milestone_a);
-    if(milestone_mapping.has(course_b)) score_b += milestone_mapping.get(milestone_b);
+    if(milestone_mapping.has(milestone_a)) score_a += milestone_mapping.get(milestone_a);
+    if(milestone_mapping.has(milestone_b)) score_b += milestone_mapping.get(milestone_b);
     return score_a - score_b;
 }
 
 // Get the next set of REU students
 function filterREUStudents() {
     // REU Requirement
-    const REU_COURSE = "202"
-    const REU_MILESTONE = "Milestone 5"
+    const REU_COURSE = 202 // 202
+    const REU_MILESTONE = "Milestone 5" // M5
 
     // Get Master Roster data
+    // Use below to test without attaching library to script (Example Sheet, not publicly editable, but viewable)
+    //var ss = SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1nGLWhzUr9gDnNgEwEI6IR27uv4Ex5Gqj33IQlrtMcbE/edit?usp=sharing')
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var roster_data = ss.getSheetByName("Master Roster").getDataRange().getValues();
     var reu_data = ss.getSheetByName("REU Roster").getDataRange().getValues();
@@ -68,17 +70,18 @@ function filterREUStudents() {
         roster_data[0].indexOf("With which race and/or ethnic group(s) do you most closely identify? [Select all that apply.]"),
         roster_data[0].indexOf("Alternate Email"),
         roster_data[0].indexOf("What is the name of the institution you currently attend?"),
+        roster_data[0].indexOf("Student Type"),
         roster_data[0].indexOf("Status (Active or Not Active)")
     ]
 
     // Filter out REU eligible students
     let roster_canvas_id_col = roster_data[0].indexOf("Canvas ID");
-    let course_col = roster_data[0].indexOf("Canvas ID");
-    let milestone_col =  roster_data[0].indexOf("Canvas ID");
+    let course_col = roster_data[0].indexOf("Course");
+    let milestone_col =  roster_data[0].indexOf("Milestone");
     var reu_eligible_students = [];
     for(let i = 1; i < roster_data.length; i++){
         if(!(reu_set.has(roster_data[i][roster_canvas_id_col]))){
-            if(compareMilestone(roster_data[0][course_col], roster_data[0][milestone_col], REU_COURSE, REU_MILESTONE) >= 0){
+            if(compareMilestone(roster_data[i][course_col], roster_data[i][milestone_col], REU_COURSE, REU_MILESTONE) >= 0){
                 reu_eligible_students.push([
                     roster_data[i][copy_col[0]],
                     roster_data[i][copy_col[1]],
