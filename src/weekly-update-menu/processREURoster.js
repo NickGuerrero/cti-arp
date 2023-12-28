@@ -113,12 +113,54 @@ function filterREUStudents() {
 }
 
 function processREUInterestForm(){
-    var reu_prep = SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1pmwPMHPrsJTXWk-4Obx5RDzoyHuyU24f2dU0Y0nCevA/edit?usp=sharing').getSheetByName('2023-2024');
-    // Take bookmark to find next form
-    // For each form, connect data to student
-    // After processing, bookmark last form checked to save time next iteration
+    const FORM_BOOKMARK = "Q1" // Keep record of last form on sheet, cell location on REU Roster Sheet. Value is 1-indexed
+
+    // Use below to test without attaching library to script (Example Sheet, not publicly editable, but viewable)
+    // var ss = SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1nGLWhzUr9gDnNgEwEI6IR27uv4Ex5Gqj33IQlrtMcbE/edit?usp=sharing')
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var reu_roster = ss.getSheetByName("REU Roster");
+    var reu_forms = SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1pmwPMHPrsJTXWk-4Obx5RDzoyHuyU24f2dU0Y0nCevA/edit?usp=sharing').getSheetByName('Form Responses 1');
+    
+    // Determine how many forms need to be processed
+    var last_row_processed = reu_roster.getRange(FORM_BOOKMARK).getValue();
+    if(reu_roster.getLastRow() == last_row_processed) return "No forms to process";
+
+    // Create email mapping to check by rows
+    var email_mapping = new Map();
+    var reu_roster_data = reu_roster.getDataRange().getValues();
+    var reu_email_col = reu_roster[0].indexOf("Email Address");
+    var reu_alt_col = reu_roster[0].indexOf("Alternate Email");
+    var alt_arr = [];
+    for(let i = 1; i < reu_roster_data.length; i++){
+        email_mapping.set(reu_roster_data[i][reu_email_col].toLowerCase(), i);
+        alt_arr = reu_roster_data[i][reu_alt_col].replace(/^,+|,+$/g, "").split(",");
+        for(let j = 0; j < alt_arr.length; j++){
+            email_mapping.set(alt_arr[j].toLowerCase(), i);
+        }
+    }
+
+    // Map forms to the correct row
+    reu_forms_data = reu_forms.getDataRange().getValues();
+    // Timestamp, Name on Form, Pursue REU group Y/N, Weekday Availability, Sunday Availability
+    const copy_col = [0, 1, 3, 4, 5];
+    var col_st = reu_roster_data[0].indexOf("Form Completed Date (Timestamp)");
+    var col_end = reu_roster_data[0].indexOf("Despite above, are you also available Sunday after hours (after 9:30 PM) for one-on-one REU consultation? ");
+    for(let i = last_row_processed - 1; i < reu_forms_data.length; i++){ // -1 to account for 1-indexing
+        if(email_mapping.has(reu_forms_data[i][2].toLowerCase())){
+            // +1 to account for 0-indexing
+            reu_roster.getRange(i + 1, col_st + 1, 1, col_end - col_st + 1).setValues(
+                [reu_forms_data[copy_col[0]], reu_forms_data[copy_col[1]], reu_forms_data[copy_col[2]],
+                reu_forms_data[copy_col[3]], reu_forms_data[copy_col[4]]]
+            );
+        } else {
+            console.log("WARNING: Email not found for " + reu_forms_data[i][2].toLowerCase());
+        }
+    }
+    reu_roster.getRange(FORM_BOOKMARK).setValue(reu_roster.getLastRow()); // Set bookmark
+    return "Processed " + (reu_roster.getLastRow() - last_row_processed) + " forms"
 }
 
+// TODO: Parking Lot
 function updateREUAttendance(){
     // Base off of existing PearDeck Scripts
     // For each sheet, fetch peardeck score & use it to update
