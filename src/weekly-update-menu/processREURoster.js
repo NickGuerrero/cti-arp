@@ -157,7 +157,7 @@ function processREUInterestForm(){
         }
     }
     reu_roster.getRange(FORM_BOOKMARK).setValue(reu_roster.getLastRow()); // Set bookmark
-    return "Processed " + (reu_roster.getLastRow() - last_row_processed) + " forms"
+    return "Processed " + (reu_roster.getLastRow() - last_row_processed).toString() + " forms"
 }
 
 // TODO: Parking Lot
